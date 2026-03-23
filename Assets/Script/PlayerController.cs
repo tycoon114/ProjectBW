@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -13,7 +14,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //테스트 용으로 update에 작성 -> 이후 함수로 만들 것
+        //넷코드 활성화 시
+        //if (!IsOwner) return;
+
+        MoveMent();
+    }
+
+    public void MoveMent()
+    {
+       //키 입력 받기
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
@@ -23,4 +32,5 @@ public class PlayerController : MonoBehaviour
         transform.position += move * moveSpeed * Time.deltaTime;
 
     }
+
 }
