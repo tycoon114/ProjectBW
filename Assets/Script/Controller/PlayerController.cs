@@ -6,6 +6,8 @@ using UnityEngine.InputSystem.XR;
 
 public class PlayerController : MonoBehaviour
 {
+    protected Animator animator;
+
     public float moveSpeed = 5f;                        //이동 속도
     private CharacterController controller;             //캐릭터 컨트롤러 ->씬 내에서 플레이어 오브젝트의 자식 프리팹으로 올 캐릭터에 달려있다.
    //protected Animator animator;                          //애니메이터 역시   씬 내에서 플레이어 오브젝트의 자식 프리팹으로 올 캐릭터에 달려있다.
@@ -18,13 +20,13 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 50.0f;                     //점프 강도
 
     private bool isJump = false;
+    private bool isMoving = false;
 
     void Start()
     {
         controller = GetComponentInChildren<CharacterController>();
         //애니메이터 작업은 아직 - 시작 후 주석 제거
-        //animator = GetComponentInChildren<Animator>();
-        Debug.Log(controller);
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -57,6 +59,9 @@ public class PlayerController : MonoBehaviour
         //수평 이동 방향 계산 (임시 변수에 담기)
         Vector3 targetMove = (cameraForward * vertical + cameraRight * horizontal);
         if (targetMove.magnitude > 1f) targetMove.Normalize();
+
+        isMoving = move.magnitude > 0;
+        animator.SetBool("isMoving", isMoving);
 
         // 중력 적용
         if (controller.isGrounded)

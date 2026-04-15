@@ -512,6 +512,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 438a60e2acf55534bb48ba5a8711c387, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: bfd74ebba20c18346bb16fd1b9cf9d04, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 438a60e2acf55534bb48ba5a8711c387, type: 3}
       propertyPath: m_CullingMode
       value: 0
       objectReference: {fileID: 0}
