@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour
         Vector3 targetMove = (cameraForward * vertical + cameraRight * horizontal);
         if (targetMove.magnitude > 1f) targetMove.Normalize();
 
+        //애니메이션 적용
         isMoving = move.magnitude > 0;
         animator.SetBool("isMoving", isMoving);
 
@@ -80,6 +81,16 @@ public class PlayerController : MonoBehaviour
         else
         {
             moveDirection.y -= gravity * Time.deltaTime;
+        }
+
+        // 플레이어 회전
+        if (targetMove.magnitude > 0.1f) // 움직임이 있을 때만 회전
+        {
+            // 이동할 방향을 쳐다보는 쿼터니언 생성
+            Quaternion targetRotation = Quaternion.LookRotation(targetMove);
+
+            // 부드럽게 회전 (속도 조절은 10f 부분 조정)
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
         }
 
         //수평 값은 새로 계산한 값으로, 수직 값(y)은 위에서 계산된 값 유지
